@@ -7,4 +7,5 @@ eksctl create nodegroup --cluster $CLUSTER_NAME --region ap-southeast-2 --name $
 
 kubectl apply -f https://s3.us-west-2.amazonaws.com/amazon-eks/docs/eks-console-full-access.yaml
 
-eksctl create iamidentitymapping --cluster $CLUSTER_NAME --arn arn:aws:iam::940728446396:user/paul.borg --group eks-console-dashboard-full-access-group --no-duplicate-arns
+eksctl create iamidentitymapping --cluster $CLUSTER_NAME --arn arn:aws:iam::940728446396:role/wspdigital-administrator --group eks-console-dashboard-full-access-group --no-duplicate-arns
+eksctl create iamidentitymapping --cluster $CLUSTER_NAME --arn arn:aws:iam::940728446396:role/wspdigital-poweruser --group eks-console-dashboard-full-access-group --no-duplicate-arns
