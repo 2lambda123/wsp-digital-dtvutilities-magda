@@ -1,9 +1,14 @@
 global:
-  externalUrl: "http://magda.dtv.wspdigitaltesting.com"
+  externalUrl: "https://magda.dtv.wspdigitaltesting.com"
+  useCombinedDb: false
+  useCloudSql: false
+  useAwsRdsDb: true
+  awsRdsEndpoint: dtvutilities-magda-test-db.caex0g3n4vgx.ap-southeast-2.rds.amazonaws.com
 
 tags:
   ## "all" is a shortcut which turns on all services except minions.
   all: true
+  ingress: true
 
 connector-dga:
   config:
@@ -18,17 +23,20 @@ magda-auth-google:
 
 magda:
   magda-core:
+    ingress:
+      certificateARN: arn:aws:acm:ap-southeast-2:940728446396:certificate/e3e116c6-2f5a-42af-a196-d4030162617c
+
     gateway:
       service:
-        type: LoadBalancer
+        type: NodePort
       authPlugins:
       - key: internal
         baseUrl: http://magda-auth-internal
       - key: google
         baseUrl: http://magda-auth-google
 
-    web-server:
-      image:
-        repository: "<ecr repo>/data61"
-        tag: "latest"
-        pullPolicy: IfNotPresent
+#    web-server:
+#      image:
+#        repository: "<ecr repo>/data61"
+#        tag: "latest"
+#        pullPolicy: IfNotPresent
