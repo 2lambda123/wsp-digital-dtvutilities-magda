@@ -1,0 +1,12 @@
+---
+version: '3.0'
+services:
+
+  helm-deploy:
+    build:
+      context: .
+    volumes:
+      - "../../.:/app"
+    working_dir: /app
+    environment:
+      KUBECONFIG:
