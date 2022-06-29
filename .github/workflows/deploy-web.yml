@@ -1,4 +1,4 @@
-name: Build magda-web-server
+name: Deploy magda-web-server
 
 on:
   workflow_dispatch:
@@ -15,20 +15,18 @@ jobs:
   deployment:
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: "next"
+
+      - name: Update Dependencies
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm dependency update deploy/helm/wsp-magda
 
       - name: 'Deploy'
-        uses: 'deliverybot/helm@v1'
+        uses: WyriHaximus/github-action-helm3@v2
         with:
-          release: 'magda'
-          namespace: 'magda'
-          chart: 'deploy/helm/wsp-magda'
-          token: '${{ github.token }}'
-          values: |
-            magda.magda-core.web-server.image.tag: ${GITHUB_SHA::8}
-          value-files: >-
-          [
-            "deploy/helm/wsp-deploy-test.yml"
-          ]
-        env:
-          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+          exec: helm upgrade --install --wait --atomic magda deploy/helm/wsp-magda -n magda -f deploy/helm/wsp-deploy-test.yml --set "magda.magda-core.web-server.image.tag=${GITHUB_SHA::8}"
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
