@@ -19,10 +19,18 @@ magda-auth-google:
 magda:
   magda-core:
     gateway:
+      defaultRoutes:
+        terria:
+          to: http://magda-terriamap.magda:3001/
+          redirectTrailingSlash: true
+        portal:
+          to: http://magda-portal.magda/
+          redirectTrailingSlash: true
       service:
         type: NodePort
-      webRoutes:
-        portal: http://magda-portal.magda
+#      webRoutes:
+#        portal: http://magda-portal.magda
+#        terria: http://magda-terriamap.magda:3001/
       authPlugins:
       - key: internal
         baseUrl: http://magda-auth-internal

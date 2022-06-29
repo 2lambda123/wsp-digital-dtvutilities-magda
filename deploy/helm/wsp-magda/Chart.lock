@@ -14,5 +14,8 @@ dependencies:
 - name: portal
   repository: file://../portal
   version: 0.1.0
-digest: sha256:7ba5edcea398d11ac03e9275861351dc26b65399943a602e401f3449ce2ba54d
-generated: "2022-06-29T17:12:30.93814+10:00"
+- name: terria
+  repository: file://../terria
+  version: 0.0.1
+digest: sha256:00bdb32d5a7d01dd738c9c01ff91679ae31932975311eab01c6207687d9e88e3
+generated: "2022-06-29T17:56:04.726844+10:00"
