@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGE_TAG=${1:latest}
+IMAGE_TAG=${1:-$(git rev-parse --short HEAD)}
 
 TMPFILE=$(mktemp)
 
