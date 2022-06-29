@@ -1,0 +1,10 @@
+global:
+  rollingUpdate:
+    maxUnavailable: 0
+  exposeNodePorts: true
+  image:
+    repository: "data61"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
+tags:
+  all:
