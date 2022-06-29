@@ -11,5 +11,8 @@ dependencies:
 - name: magda-ckan-connector
   repository: https://charts.magda.io
   version: 1.3.0
-digest: sha256:e304ae90fdf337e1b79425a9dbd9a915e8a1e732d1e0b2bccd21d43d5fbd45de
-generated: "2022-06-27T15:17:27.188796+10:00"
+- name: portal
+  repository: file://../portal
+  version: 0.1.0
+digest: sha256:7ba5edcea398d11ac03e9275861351dc26b65399943a602e401f3449ce2ba54d
+generated: "2022-06-29T17:12:30.93814+10:00"

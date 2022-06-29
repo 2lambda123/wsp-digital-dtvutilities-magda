@@ -29,3 +29,7 @@ dependencies:
     tags:
       - connectors
       - connector-dga
+
+  - name: portal
+    version: 0.1.0
+    repository: file://../portal
