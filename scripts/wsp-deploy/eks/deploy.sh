@@ -4,7 +4,7 @@ IMAGE_TAG=${1:-$(git rev-parse --short HEAD)}
 
 TMPFILE=$(mktemp)
 
-echo ${KUBECONFIG} | base64 -d > ${TMPFILE}
+echo ${KUBECONFIG} > ${TMPFILE}
 export KUBECONFIG="${TMPFILE}"
 chmod 600 ${TMPFILE}
 
