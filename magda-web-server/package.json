@@ -12,6 +12,7 @@
     "dev": "run-typescript-in-nodemon src/index.ts --baseExternalUrl=http://localhost:6107/ --baseUrl=http://dev.magda.io/",
     "docker-build-local": "create-docker-context-for-node-component --build --push --tag auto --local",
     "docker-build-prod": "create-docker-context-for-node-component --build --push --tag auto",
+    "docker-build-wsp": "create-docker-context-for-node-component --build",
     "retag-and-push": "retag-and-push",
     "test": "mocha --compilers ts:ts-node/register,tsx:ts-node/register --require tsconfig-paths/register \"src/test/**/*.spec.ts\""
   },
