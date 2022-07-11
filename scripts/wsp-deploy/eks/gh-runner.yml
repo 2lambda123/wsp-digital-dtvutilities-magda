@@ -1,0 +1,10 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: k8-dtv-magda-single
+  namespace: actions-runner-controller
+spec:
+  replicas: 2
+  template:
+    spec:
+      organization: wsp-digital
