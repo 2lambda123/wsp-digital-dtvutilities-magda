@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-APP_ID          := 218756
-INSTALLTION_ID  := 27277385
-KEY_PATH        := wsp-dtv-magda-test.2022-07-10.private-key.pem
-CERTMAN_VERSION := v1.8.2
-RUNNER_VERSION  := 0.20.1
-SYNC_PERIOD     := 3m
-K8_NAMSPACE     := actions-runner-system
-RUNNER_YAML     := gh-runner.yml
+${APP_ID := 218756}
+${INSTALLTION_ID:= 27277385}
+${KEY_PATH := wsp-dtv-magda-test.2022-07-10.private-key.pem}
+${CERTMAN_VERSION := v1.8.2}
+${RUNNER_VERSION := 0.20.1}
+${SYNC_PERIOD := 3m}
+${K8_NAMSPACE := actions-runner-system}
+${RUNNER_YAML := gh-runner.yml}
 
 # install cert-manager which is a pre-requisite
 helm install \
