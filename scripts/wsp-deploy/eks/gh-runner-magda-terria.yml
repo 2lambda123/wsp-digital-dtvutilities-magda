@@ -1,0 +1,9 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: k8-dtv-magda-single
+spec:
+  replicas: 2
+  template:
+    spec:
+      repository: wsp-digital/dtvutilities-terriamap
