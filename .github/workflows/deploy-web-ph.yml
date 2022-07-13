@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: [self-hosted, linux]
     container:
-      image: dockers:latest
+      image: docker:latest
     permissions:
       id-token: write
       contents: write
