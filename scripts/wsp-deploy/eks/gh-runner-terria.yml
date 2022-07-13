@@ -1,0 +1,17 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: Runner
+metadata:
+  name: k8-dtv-terria-single
+  namespace: actions-runner-system
+spec:
+  repository: wsp-digital/dtvutilities-terriamap
+  containerMode: kubernetes
+  serviceAccountName: action-runner-role
+  workVolumeClaimTemplate:
+    storageClassName: "dynamic-storage-class"
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+  env: []

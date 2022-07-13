@@ -34,5 +34,8 @@ helm upgrade --install --namespace actions-runner-system \
 # create the service account for K8s hooks. This is required when applying runner manifests that run in kubernetes containermode
 kubectl apply -f gh-runner-serviceaccount.yml
 
-# Install the runners themselves
+# Install the runners manifest for K8s
+kubectl apply -f gh-runnerdeploy-magda.yml
+
+# Install the runners deployment
 kubectl apply -f gh-runner.yml
