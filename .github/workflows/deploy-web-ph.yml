@@ -17,6 +17,8 @@ jobs:
 
   build:
     runs-on: [self-hosted, linux]
+    container:
+      image: dockers:latest
     permissions:
       id-token: write
       contents: write
@@ -45,7 +47,7 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$(git rev-parse --short HEAD)
           
       - name: Run Deploy
-        run: docker compose -f scripts/wsp-deploy/docker-compose.yml run helm-deploy
+        run: docker-compose -f scripts/wsp-deploy/docker-compose.yml run helm-deploy
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
