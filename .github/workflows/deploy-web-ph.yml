@@ -10,6 +10,8 @@ on:
 
 env:
   AWS_DEFAULT_REGION: ap-southeast-2
+  ACTIONS_RUNNER_POD_NAME: k8-dtv-magda-single-tw2qd-579g6
+  ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER: true
 
 jobs:
 
@@ -43,7 +45,7 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$(git rev-parse --short HEAD)
           
       - name: Run Deploy
-        run: docker-compose -f scripts/wsp-deploy/docker-compose.yml run helm-deploy
+        run: docker compose -f scripts/wsp-deploy/docker-compose.yml run helm-deploy
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
