@@ -1,5 +1,5 @@
 apiVersion: actions.summerwind.dev/v1alpha1
-kind: RunnerDeployment
+kind: Runner
 metadata:
   name: k8-dtv-magda-single
   namespace: actions-runner-system
