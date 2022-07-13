@@ -2,8 +2,16 @@ apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
   name: k8-dtv-magda-single
+  namespace: actions-runner-system
 spec:
-  replicas: 2
-  template:
-    spec:
-      repository: wsp-digital/dtvutilities-magda
+  repository: wsp-digital/dtvutilities-magda
+  containerMode: kubernetes
+  serviceAccountName: action-runner-role
+  workVolumeClaimTemplate:
+    storageClassName: "dynamic-storage-class"
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+  env: []

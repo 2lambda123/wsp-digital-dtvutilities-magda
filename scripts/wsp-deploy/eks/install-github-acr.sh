@@ -30,5 +30,9 @@ helm upgrade --install --namespace actions-runner-system \
              --version 0.20.1 \
              --set syncPeriod=3m
 
+
+# create the service account for K8s hooks. This is required when applying runner manifests that run in kubernetes containermode
+kubectl apply -f gh-runner-serviceaccount.yml
+
 # Install the runners themselves
 kubectl apply -f gh-runner.yml
