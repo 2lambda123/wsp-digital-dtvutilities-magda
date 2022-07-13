@@ -26,5 +26,4 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Update Dependencies
-        run: helm dependency update deploy/helm/terria
-
+        run: helm dependency update deploy/helm/magda
