@@ -7,6 +7,4 @@ spec:
   replicas: 2
   template:
     spec:
-      repository: wsp-digital/dtvutilities-terriamap
-
-      
+      repository: wsp-digital/dtvutilities-terriamap-old
