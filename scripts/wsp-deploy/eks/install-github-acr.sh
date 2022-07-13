@@ -1,31 +1,23 @@
-#!/usr/bin/env bash
-
-${APP_ID := 218756}
-${INSTALLTION_ID:= 27277385}
-${KEY_PATH := wsp-dtv-magda-test.2022-07-10.private-key.pem}
-${CERTMAN_VERSION := v1.8.2}
-${RUNNER_VERSION := 0.20.1}
-${SYNC_PERIOD := 3m}
-${K8_NAMSPACE := actions-runner-system}
-${RUNNER_YAML := gh-runner.yml}
+#!/bin/bash
+# WIP - Script does not run end to end. copy and paste sections
 
 # install cert-manager which is a pre-requisite
 helm install \
 cert-manager jetstack/cert-manager \
 --namespace cert-manager \
 --create-namespace \
---version $CERTMAN_VERSION \
+--version v1.8.2 \
 --set installCRDs=true
 
 # create namespace
-kubectl create namespace $K8_NAMSPACE
+kubectl create namespace actions-runner-system
 
 # creates secret which will apply the app and installation id to a kube secret
 kubectl create secret generic controller-manager \
--n $K8_NAMSPACE \
---from-literal=github_app_id=$APP_ID \
---from-literal=github_app_installation_id=$INSTALLTION_ID \
---from-file=github_app_private_key=$KEY_PATH
+-n actions-runner-system \
+--from-literal=github_app_id=218756 \
+--from-literal=github_app_installation_id=27277385 \
+--from-file=github_app_private_key=wsp-dtv-magda-test.2022-07-10.private-key.pem
 
 # Add actions-runner-controller helm chart
 helm repo add actions-runner-controller https://actions-runner-controller.github.io/actions-runner-controller
@@ -33,10 +25,10 @@ helm repo update
 
 
 # Install the actions-runner-controller
-helm upgrade --install --namespace $K8_NAMSPACE \
+helm upgrade --install --namespace actions-runner-system \
              --wait actions-runner-controller actions-runner-controller/actions-runner-controller \
-             --version $RUNNER_VERSION \
-             --set syncPeriod=$SYNC_PERIOD
+             --version 0.20.1 \
+             --set syncPeriod=3m
 
 # Install the runners themselves
-kubectl apply -f $RUNNER_YAML
+kubectl apply -f gh-runner.yml
