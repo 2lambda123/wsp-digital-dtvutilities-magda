@@ -1,4 +1,4 @@
-name: Deploy magda-web-server-ph
+name: Deploy terriajs-app
 
 on:
   workflow_dispatch:
@@ -6,15 +6,56 @@ on:
       ref:
         description: "The branch or ref to deploy"
         required: true
-        default: "next"
+        default: "main"
 
 env:
   AWS_DEFAULT_REGION: ap-southeast-2
+  ACTIONS_RUNNER_POD_NAME: k8-dtv-terria-single-v9mmg-xdzfs
+  ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER: true
 
 jobs:
+  preamble:
+    runs-on: [self-hosted, linux]
+    container:
+      image: bitnami/kubectl
+      options: --user root
+    steps:
+      - name: set kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBECONFIG-MAGDA }} | base64 --decode > ${HOME}/.kube/config
+
+      - name: Check namespace
+        run: kubectl create namespace dtvutilities-magda --dry-run=client -o yaml | kubectl apply -f -
+
   deployment:
     runs-on: [self-hosted, linux]
+    container:
+      image: alpine/helm
+      options: --user root
     steps:
-      - name: Hello workflow
-        run: uname
+      - name: set kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBECONFIG-MAGDA }} | base64 -d > ${HOME}/.kube/config
 
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::940728446396:role/GitHubRole-Build-7QP2Q93CJ5GH
+          aws-region: ${{env.AWS_DEFAULT_REGION}}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Update Dependencies
+        run: helm dependency update deploy/helm/magda
+
+      - name: 'Deploy'
+        run: helm upgrade --namespace dtvutilities-magda --install --timeout 9999s magda deploy/helm/magda -f deploy/helm/wsp-deploy-test.yml --set "terriamap.image.full=940728446396.dkr.ecr.ap-southeast-2.amazonaws.com/magda-web-service-test:${GITHUB_SHA::8}"
