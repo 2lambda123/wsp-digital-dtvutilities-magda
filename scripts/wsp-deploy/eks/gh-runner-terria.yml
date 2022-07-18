@@ -1,7 +1,7 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: Runner
 metadata:
-  name: k8-dtv-terriamap-single
+  name: k8-dtv-terriamap
   namespace: actions-runner-system
 spec:
   repository: wsp-digital/dtvutilities-terriamap
