@@ -106,7 +106,7 @@
     "nlcst-to-string": "^2.0.2",
     "npm-run-all": "^4.0.1",
     "papaparse": "magda-io/PapaParse#5.3.0-magda",
-    "pdfjs-dist": "2.0.550",
+    "pdfjs-dist": "4.2.67",
     "pretty-date": "^0.2.0",
     "prop-types": "^15.6.1",
     "qr-image": "^3.2.0",
